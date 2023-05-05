@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>work</title>
+    </head>
+    <script>
+        function move(){
+            let img= document.querySelector('img');
+            img.style.float="right";
+            
+
+        }
+        function mouseover(){
+            let img= document.querySelector('img');
+            img.style.height="150px";
+            img.style.width="150px";
+        }
+        function mouseout(){
+            let img= document.querySelector('img');
+            img.style.height="200px";
+            img.style.width="200px";
+        }
+    </script>
+    <body>
+        <img src="mo.JPG" alt="work" width="100px" onmouseover="mouseover()" onmouseout="mouseout()">
+        <br>
+        <button onclick="move()">click me.!</button>
+    </body>
+</html>
+

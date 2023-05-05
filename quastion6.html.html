@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="cursor: help;">
+    <h1><center> CURRICULUM VITAE (CV) WEBSITE</center></h1>
+    <legend><hr></legend><center><h2>welcome to login</h2>
+    <label id="username">username</label>
+    <input type="username" placeholder="enter your username" name="username"><p>
+    <label >Password</label>
+    <input type="Password" placeholder="enter your Password" name="Password"><p>
+        <button>submit</button>
+    
+const loginForm = document.getElementById('login-form');
+const contactForm = document.getElementById('contact-form');
+const contactList = document.getElementById('contact-list');
+
+ <!--Check if user is already logged in-->
+if (localStorage.getItem('loggedIn') === 'true') {
+  showContactForm();
+  showContacts();
+}
+
+ Handle login form submission
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const username = loginForm.elements.username.value;
+  const password = loginForm.elements.password.value;
+
+   Check if credentials are valid
+  if (username === 'admin' && password === 'password') {
+    localStorage.setItem('loggedIn', 'true');
+    showContactForm();
+    showContacts();
+  } else {
+    alert('Invalid username or password');
+  }
+});
+
+// Handle contact form submission
+contactForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = contactForm.elements.name.value;
+  const email = contactForm.elements.email.value;
+  const message = contactForm.elements.message.value;
+
+  // Save contact to local storage
+  const contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+  contacts.push({ name, email, message });
+  localStorage.setItem('contacts', JSON.stringify(contacts));
+
+  // Clear contact form
+  contactForm.reset();
+
+  // Show updated contact list
+  showContacts();
+});
+ Show contact form
+function showContactForm() {
+  contactForm.style.display = 'block';
+}
+ Show list of contacts
+function showContacts() {
+  contactList.innerHTML = '';
+  const contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+  contacts.forEach((contact) => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <b>Name:</b> ${contact.name}<br>
+      <b>Email:</b> ${contact.email}<br>
+      <b>Message:</b> ${contact.message}
+    `;
+    contactList.appendChild(li);
+  });
+}
+
+</body>
+</html>
+<style>
+    body {
+        color: aquamarine;
+        background-color: blueviolet;
+    }
+    h1 {
+        color: rgb(5, 245, 105);
+        font-style: italic;
+    }
+    legend {
+        color: aqua;
+    }
+</style>
